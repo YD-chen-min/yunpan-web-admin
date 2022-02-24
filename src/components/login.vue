@@ -22,7 +22,7 @@
           />
         </div>
         <div class="line">
-          <a href="" style="padding: 0px 50px">忘记密码?</a>
+          <a href="/resetpassword" style="padding: 0px 50px">忘记密码?</a>
         </div>
         <div class="line" style="justify-content: center">
           <el-button type="primary" @click="login" :loading="isloading"

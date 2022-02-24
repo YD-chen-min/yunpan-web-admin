@@ -44,6 +44,12 @@ const routes = [
     }
   },
   {
+    path: '/resetpassword',
+    name: 'resetpassword',
+    component: () => import('../components/resetPassword')
+
+  },
+  {
     path: '/userInfo',
     name: 'userInfo',
     component: () => import('../components/userInfo'),

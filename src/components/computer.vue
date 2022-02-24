@@ -6,7 +6,8 @@
       @click="loadData"
     ></el-button>
     <b>集群信息</b>
-    <hr />
+    <el-divider></el-divider>
+
     <!-- <table border="1">
       <tr>
         <td>总空间</td>
@@ -85,7 +86,7 @@
     </el-form>
 
     <b>活跃数据结点</b>
-    <hr />
+    <el-divider></el-divider>
     <!-- <table
       v-for="(item, i) in hdfsSummary.liveDataNodeInfos"
       :key="i"
@@ -150,7 +151,7 @@
     <b v-if="hdfsSummary.liveDataNodeInfos.length == 0">无</b>
 
     <b>非活跃数据结点</b>
-    <hr />
+    <el-divider></el-divider>
     <!-- <table
       v-for="(item, i) in hdfsSummary.deadDataNodeInfos"
       :key="i"
