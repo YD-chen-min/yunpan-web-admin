@@ -120,6 +120,7 @@ export default {
                   message: res.body.msg,
                   type: "success",
                 });
+                _this.loadData();
               } else {
                 _this.$message({
                   showClose: true,

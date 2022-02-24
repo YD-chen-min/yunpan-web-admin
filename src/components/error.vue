@@ -24,8 +24,17 @@
       ></el-button>
     </div>
     <el-table :data="selectedData" border style="width: 100%; height: 100%">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="错误详情:">
+              <span>{{ props.row.stackTrace }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column prop="time" label="日期" width="350"> </el-table-column>
-      <el-table-column prop="option" label="操作" width="1250">
+      <el-table-column prop="message" label="错误信息" width="1250">
       </el-table-column>
     </el-table>
   </div>
@@ -33,26 +42,28 @@
 
 <script>
 export default {
-  name: "Logger",
+  name: "Error",
   data() {
     return {
       tableData: [],
+      selectedData: [],
       HOST: "http://localhost:10001/",
       selectTime: "",
-      selectedData: [],
     };
   },
   created() {
     let _this = this;
-    _this.$http.get(_this.HOST + "log/get/admin").then((res) => {
-      _this.tableData = res.body.data;
-      _this.selectedData = res.body.data;
+    _this.$http.get(_this.HOST + "log/error/get").then((res) => {
+      if (res.body.code == 0) {
+        _this.tableData = res.body.data;
+        _this.selectedData = res.body.data;
+      }
     });
   },
   methods: {
     loadHis() {
       let _this = this;
-      _this.$http.get(_this.HOST + "log/get/admin").then((res) => {
+      _this.$http.get(_this.HOST + "log/error/get").then((res) => {
         _this.tableData = res.body.data;
         _this.selectData = res.body.data;
       });
@@ -67,7 +78,7 @@ export default {
       this.selectedData = tableData;
     },
     downloadLog() {
-      let url = this.HOST + "log/admin/download";
+      let url = this.HOST + "log/error/download";
       const iframe = document.createElement("iframe");
       iframe.style.display = "none"; // 防止影响页面
       iframe.style.height = 0; // 防止影响页面

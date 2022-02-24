@@ -32,7 +32,7 @@
           <i class="el-icon-user"></i>
           <span slot="title">用户管理</span>
         </el-menu-item>
-        <el-menu-item index="computers">
+        <el-menu-item index="computer">
           <i class="el-icon-monitor"></i>
           <span slot="title">集群信息</span>
         </el-menu-item>
@@ -50,7 +50,7 @@
               <i class="el-icon-s-order"></i>
               <span slot="title">操作日志</span>
             </el-menu-item>
-            <el-menu-item index="">
+            <el-menu-item index="error">
               <i class="el-icon-s-release"></i>
               <span slot="title">错误日志</span>
             </el-menu-item>

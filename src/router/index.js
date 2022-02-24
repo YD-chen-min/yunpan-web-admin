@@ -20,6 +20,14 @@ const routes = [
     }
   },
   {
+    path: '/error',
+    name: 'error',
+    component: () => import('../components/error'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: '/users',
     name: 'users',
     component: () => import('../components/users'),
