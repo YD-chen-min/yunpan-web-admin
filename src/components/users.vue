@@ -173,7 +173,22 @@ export default {
       }
       // console.log(datas);
       this.selectedData = datas;
-      console.log(this.selectedData);
+      if (datas.length == 0) {
+        let _this = this;
+        _this.$http
+          .get(_this.HOST + "user/getList", {
+            params: {
+              user: _this.search,
+              start: 0,
+            },
+          })
+          .then((res) => {
+            if (res.body.data.length > 0) {
+              datas = res.body.data;
+              _this.selectedData = datas;
+            }
+          });
+      }
     },
     handleDelete(index, row) {
       this.$confirm("确认删除？")

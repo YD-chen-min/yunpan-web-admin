@@ -1,92 +1,93 @@
 <template>
-  <el-container style="height: 100%; border: 1px solid #eee">
-    <el-aside
-      style="
-        color: #f9fafb;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        height: 100%;
-      "
-    >
-      <div
+  <div style="height: 100%">
+    <login v-if="userInfo.user == null"></login>
+    <el-container v-else style="height: 100%; border: 1px solid #eee">
+      <el-aside
         style="
-          background: #0059a5;
-          height: 80px;
+          color: #f9fafb;
           display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          color: #ffffff;
-          font-size: 28px;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          height: 100%;
         "
       >
-        墨家云盘
-      </div>
-      <el-menu
-        class="el-menu-vertical-demo"
-        router
-        default-active="$route.path"
-      >
-        <el-menu-item index="users">
-          <i class="el-icon-user"></i>
-          <span slot="title">用户管理</span>
-        </el-menu-item>
-        <el-menu-item index="computer">
-          <i class="el-icon-monitor"></i>
-          <span slot="title">集群信息</span>
-        </el-menu-item>
-        <el-menu-item index="logger">
-          <i class="el-icon-s-order"></i>
-          <span slot="title">操作日志</span>
-        </el-menu-item>
-        <el-submenu>
-          <template slot="title">
-            <i class="el-icon-notebook-2"></i>
-            <span>日志记录</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="logger">
-              <i class="el-icon-s-order"></i>
-              <span slot="title">操作日志</span>
-            </el-menu-item>
-            <el-menu-item index="error">
-              <i class="el-icon-s-release"></i>
-              <span slot="title">错误日志</span>
-            </el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-      </el-menu>
-    </el-aside>
+        <div
+          style="
+            background: #0059a5;
+            height: 80px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 28px;
+          "
+        >
+          墨家云盘
+        </div>
+        <el-menu
+          class="el-menu-vertical-demo"
+          router
+          default-active="$route.path"
+        >
+          <el-menu-item index="users">
+            <i class="el-icon-user"></i>
+            <span slot="title">用户管理</span>
+          </el-menu-item>
+          <el-menu-item index="computer">
+            <i class="el-icon-monitor"></i>
+            <span slot="title">集群信息</span>
+          </el-menu-item>
 
-    <el-main style="padding: 0px 0px">
-      <el-header style="padding: 0px 0px">
-        <el-dropdown class="myHeader" @command="handleCommand">
-          <div class="myHeader">
-            <i class="el-icon-user-solid"></i>
-            <b v-if="userInfo.name == ''">请登录</b>
-            <b v-else>{{ userInfo.name }}</b>
-          </div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="修改信息">修改信息</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-            <el-dropdown-item divided command="exit">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </el-header>
-      <router-view @infoFlush="flushFF"></router-view>
-    </el-main>
-    <user-info ref="userInfo1"></user-info>
-  </el-container>
+          <el-submenu>
+            <template slot="title">
+              <i class="el-icon-notebook-2"></i>
+              <span>日志记录</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="logger">
+                <i class="el-icon-s-order"></i>
+                <span slot="title">操作日志</span>
+              </el-menu-item>
+              <el-menu-item index="error">
+                <i class="el-icon-s-release"></i>
+                <span slot="title">错误日志</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+
+      <el-main style="padding: 0px 0px">
+        <el-header style="padding: 0px 0px">
+          <el-dropdown class="myHeader" @command="handleCommand">
+            <div class="myHeader">
+              <i class="el-icon-user-solid"></i>
+              <b v-if="userInfo.name == ''">请登录</b>
+              <b v-else>{{ userInfo.name }}</b>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="修改信息">修改信息</el-dropdown-item>
+              <el-dropdown-item command="修改密码">修改密码</el-dropdown-item>
+              <el-dropdown-item divided command="exit"
+                >退出登录</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-header>
+        <router-view @infoFlush="flushFF"></router-view>
+      </el-main>
+      <user-info ref="userInfo1"></user-info>
+    </el-container>
+  </div>
 </template>
 
 <script>
 import userInfo from "../components/userInfo.vue";
 import router from "../router/index";
+import login from "../components/login.vue";
 export default {
-  components: { userInfo },
+  components: { userInfo, login },
   name: "Home",
   router,
   data() {
@@ -117,6 +118,8 @@ export default {
       } else if (command == "exit") {
         sessionStorage.removeItem("user");
         window.location.replace("/main");
+      } else if (command == "修改密码") {
+        window.location.replace("/resetpassword");
       }
     },
     flushFF() {
