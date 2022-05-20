@@ -1,6 +1,8 @@
 <template>
   <div style="height: 100%">
-    <login v-if="userInfo.user == null"></login>
+    <div style="height: 100%" v-if="userInfo.user == null">
+      <router-view></router-view>
+    </div>
     <el-container v-else style="height: 100%; border: 1px solid #eee">
       <el-aside
         style="

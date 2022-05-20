@@ -53,7 +53,7 @@ export default {
   },
   created() {
     let _this = this;
-    _this.$http.get(_this.HOST + "log/error/get").then((res) => {
+    _this.$http.get(_this.HOST + "log/get/error").then((res) => {
       if (res.body.code == 0) {
         _this.tableData = res.body.data;
         _this.selectedData = res.body.data;
@@ -63,7 +63,7 @@ export default {
   methods: {
     loadHis() {
       let _this = this;
-      _this.$http.get(_this.HOST + "log/error/get").then((res) => {
+      _this.$http.get(_this.HOST + "log/get/error").then((res) => {
         _this.tableData = res.body.data;
         _this.selectData = res.body.data;
       });
